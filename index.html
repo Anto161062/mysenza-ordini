@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordini Profumi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .product {
+            background: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .cta button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ordina i Tuoi Profumi</h1>
+
+    <div class="product">
+        <h2>Vigna Rossa</h2>
+        <p>Passione e calore - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Vigna Rossa', 20)">Ordina 200ml</button>
+        <button onclick="order('Vigna Rossa', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>Citri Fructus</h2>
+        <p>Freschezza agrumata - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Citri Fructus', 20)">Ordina 200ml</button>
+        <button onclick="order('Citri Fructus', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>Eucalipto</h2>
+        <p>Rigenerazione e purezza - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Eucalipto', 20)">Ordina 200ml</button>
+        <button onclick="order('Eucalipto', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>Lavanda e Menta</h2>
+        <p>Serenità e leggerezza - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Lavanda e Menta', 20)">Ordina 200ml</button>
+        <button onclick="order('Lavanda e Menta', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>Oltremare</h2>
+        <p>Libertà e freschezza - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Oltremare', 20)">Ordina 200ml</button>
+        <button onclick="order('Oltremare', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>Risveglio</h2>
+        <p>Vitalità e comfort - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Risveglio', 20)">Ordina 200ml</button>
+        <button onclick="order('Risveglio', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>Sapientia</h2>
+        <p>Profondità e calma mentale - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Sapientia', 20)">Ordina 200ml</button>
+        <button onclick="order('Sapientia', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>Vaniglia Nera</h2>
+        <p>Raffinatezza e dolcezza - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Vaniglia Nera', 20)">Ordina 200ml</button>
+        <button onclick="order('Vaniglia Nera', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>VaniLime</h2>
+        <p>Equilibrio e vivacità - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('VaniLime', 20)">Ordina 200ml</button>
+        <button onclick="order('VaniLime', 35)">Ordina 500ml</button>
+    </div>
+
+    <div class="product">
+        <h2>Anima</h2>
+        <p>Introspezione e conforto - 200ml - 20€ | 500ml - 35€</p>
+        <button onclick="order('Anima', 20)">Ordina 200ml</button>
+        <button onclick="order('Anima', 35)">Ordina 500ml</button>
+    </div>
+
+    <h2>Profumi per Bucato</h2>
+    <div class="product">
+        <h2>Fiori</h2>
+        <p>Intenso e Duraturo - 500ml - 18€</p>
+        <button onclick="order('Fiori', 18)">Ordina 500ml</button>
+    </div>
+    
+    <div class="product">
+        <h2>Brezza</h2>
+        <p>Energia e Freschezza - 500ml - 18€</p>
+        <button onclick="order('Brezza', 18)">Ordina 500ml</button>
+    </div>
+    
+    <div class="product">
+        <h2>Tramonto</h2>
+        <p>Dolcezza e Relax - 500ml - 18€</p>
+        <button onclick="order('Tramonto', 18)">Ordina 500ml</button>
+    </div>
+    
+    <script>
+        function order(product, price) {
+            let message = `Ciao! Confermo ordine per ${product} - ${price}€`;
+            window.open(`https://wa.me/393717771328?text=${encodeURIComponent(message)}`, "_blank");
+        }
+    </script>
+</body>
+</html>

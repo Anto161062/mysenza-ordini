@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scegli i Tuoi Profumi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF;
+            color: white;
+        }
+        .product {
+            background: white;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+        .cta button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .total-container {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .summary-table th {
+            background-color: #0056b3;
+            color: white;
+        }
+        .blue-check {
+            color: #0056b3;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/logo.png" alt="MySenza1 Logo" class="logo">
+    <h1>Scegli i Tuoi Profumi</h1>
+    <div id="products-container"></div>
+    
+    <div class="total-container">
+        <h2>🛒 Riepilogo Ordine</h2>
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>🧴 Prodotto</th>
+                    <th>📏 Formato</th>
+                    <th>💰 Prezzo</th>
+                    <th>🔢 Quantità</th>
+                </tr>
+            </thead>
+            <tbody id="order-summary"></tbody>
+        </table>
+        <h3>🧾 Totale: <span id="total-price">0€</span></h3>
+        <button onclick="sendOrder()">📩 Invia Conferma Ordine</button>
+    </div>
+    
+    <script>
+        const products = [
+            { name: "Vigna Rossa", desc: "Passione e calore.", price200: 20, price500: 35 },
+            { name: "Citri Fructus", desc: "Freschezza agrumata.", price200: 20, price500: 35 },
+            { name: "Eucalipto", desc: "Rigenerazione e purezza.", price200: 20, price500: 35 },
+            { name: "Lavanda e Menta", desc: "Serenità e leggerezza.", price200: 20, price500: 35 },
+            { name: "Oltremare", desc: "Libertà e freschezza.", price200: 20, price500: 35 },
+            { name: "Risveglio", desc: "Vitalità e comfort.", price200: 20, price500: 35 },
+            { name: "Sapientia", desc: "Profondità e calma mentale.", price200: 20, price500: 35 },
+            { name: "Vaniglia Nera", desc: "Raffinatezza e dolcezza.", price200: 20, price500: 35 },
+            { name: "VaniLime", desc: "Equilibrio e vivacità.", price200: 20, price500: 35 },
+            { name: "Anima", desc: "Introspezione e conforto.", price200: 20, price500: 35 },
+            { name: "Fiori (bucato)", desc: "Intenso e duraturo.", price500: 18 },
+            { name: "Brezza (bucato)", desc: "Energia e freschezza.", price500: 18 },
+            { name: "Tramonto (bucato)", desc: "Dolcezza e relax.", price500: 18 }
+        ];
+        
+        let cart = [];
+        
+        function addProduct(product, size, price) {
+            let quantity = prompt(`Inserisci la quantità per ${product} (${size}):`, "1");
+            if (quantity && !isNaN(quantity) && quantity > 0) {
+                cart.push({ name: product, size: size, price: price * quantity, quantity: quantity });
+                updateSummary();
+            }
+        }
+        
+        function updateSummary() {
+            let summaryBody = document.getElementById("order-summary");
+            let totalPrice = 0;
+            summaryBody.innerHTML = "";
+            cart.forEach(item => {
+                totalPrice += item.price;
+                summaryBody.innerHTML += `<tr><td>${item.name}</td><td>${item.size}</td><td class='blue-check'>${item.price}€</td><td>${item.quantity}</td></tr>`;
+            });
+            document.getElementById("total-price").innerText = `${totalPrice}€`;
+        }
+        
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert("Nessun prodotto selezionato. Aggiungi almeno un prodotto prima di inviare l'ordine.");
+                return;
+            }
+            let message = "🛍️ Ciao! Ecco il mio ordine:\n";
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.size}) x${item.quantity} - ${item.price}€\n`;
+            });
+            message += `\n💳 Totale Ordine: ${document.getElementById("total-price").innerText}`;
+            window.open(`https://wa.me/393717771328?text=${encodeURIComponent(message)}`, "_blank");
+        }
+        
+        function generateProductHTML() {
+            let container = document.getElementById("products-container");
+            products.forEach(product => {
+                let div = document.createElement("div");
+                div.className = "product";
+                div.innerHTML = `
+                    <h2>${product.name}</h2>
+                    <p>${product.desc}</p>
+                    ${product.price200 ? `<button onclick="addProduct('${product.name}', '200ml', ${product.price200})">Ordina 200ml - ${product.price200}€</button>` : ""}
+                    ${product.price500 ? `<button onclick="addProduct('${product.name}', '500ml', ${product.price500})">Ordina 500ml - ${product.price500}€</button>` : ""}
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        generateProductHTML();
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scegli i Tuoi Profumi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #007BFF;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .product {
+            background: white;
+            padding: 10px;
+            margin: 10px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 500px;
+        }
+        .product img {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+        }
+        .product-details {
+            text-align: left;
+            flex: 1;
+            padding-left: 10px;
+        }
+        .cta button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 8px 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .total-container {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+            max-width: 500px;
+            margin: auto;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .summary-table th {
+            background-color: #0056b3;
+            color: white;
+        }
+        .blue-check {
+            color: #0056b3;
+        }
+        .logo {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/logo.png" alt="MySenza1 Logo" class="logo">
+        <h1>Scegli i Tuoi Profumi</h1>
+        <div id="products-container"></div>
+
+        <div class="total-container">
+            <h2>Riepilogo Ordine</h2>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Prodotto</th>
+                        <th>Formato</th>
+                        <th>Prezzo</th>
+                        <th>Quantità</th>
+                    </tr>
+                </thead>
+                <tbody id="order-summary"></tbody>
+            </table>
+            <h3>Totale: <span id="total-price">0€</span></h3>
+            <button onclick="sendOrder()">📩 Invia Conferma Ordine</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { name: "Vigna Rossa", desc: "Passione e calore.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/vigna_rossa.png" },
+            { name: "Citri Fructus", desc: "Freschezza agrumata.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/citri_fructus.png" },
+            { name: "Eucalipto", desc: "Rigenerazione e purezza.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/eucalipto.png" },
+            { name: "Lavanda e Menta", desc: "Serenità e leggerezza.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/lavanda_menta.png" },
+            { name: "Oltremare", desc: "Libertà e freschezza.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/oltremare.png" },
+            { name: "Risveglio", desc: "Vitalità e comfort.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/risveglio.png" },
+            { name: "Sapientia", desc: "Profondità e calma mentale.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/sapientia.png" },
+            { name: "Vaniglia Nera", desc: "Raffinatezza e dolcezza.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/vaniglia_nera.png" },
+            { name: "VaniLime", desc: "Equilibrio e vivacità.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/vanilime.png" },
+            { name: "Anima", desc: "Introspezione e conforto.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/anima.png" },
+            { name: "03 - Fiori (Bucato)", desc: "Intenso e duraturo.", price500: 18, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/fiori.png" },
+            { name: "10 - Brezza (Bucato)", desc: "Energia e freschezza.", price500: 18, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/brezza.png" },
+            { name: "20 - Tramonto (Bucato)", desc: "Dolcezza e relax.", price500: 18, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/tramonto.png" }
+        ];
+        
+        let cart = [];
+        
+        function addProduct(product, size, price) {
+            let quantity = prompt(`Inserisci la quantità per ${product} (${size}):`, "1");
+            if (quantity && !isNaN(quantity) && quantity > 0) {
+                cart.push({ name: product, size: size, price: price * quantity, quantity: quantity });
+                updateSummary();
+            }
+        }
+        
+        function updateSummary() {
+            let summaryBody = document.getElementById("order-summary");
+            let totalPrice = 0;
+            summaryBody.innerHTML = "";
+            cart.forEach(item => {
+                totalPrice += item.price;
+                summaryBody.innerHTML += `<tr><td>${item.name}</td><td>${item.size}</td><td class='blue-check'>${item.price}€</td><td>${item.quantity}</td></tr>`;
+            });
+            document.getElementById("total-price").innerText = `${totalPrice}€`;
+        }
+        
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert("Nessun prodotto selezionato.");
+                return;
+            }
+            let message = "📦 *Ordine MySenza1*\n";
+            cart.forEach(item => {
+                message += `✅ ${item.name} (${item.size}) x${item.quantity} - ${item.price}€\n`;
+            });
+            message += `\n💰 *Totale*: ${document.getElementById("total-price").innerText}`;
+            
+            window.open(`https://wa.me/393717771328?text=${encodeURIComponent(message)}`, "_blank");
+        }
+        
+        function generateProductHTML() {
+            let container = document.getElementById("products-container");
+            products.forEach(product => {
+                container.innerHTML += `<div class="product"><img src="${product.img}" alt="${product.name}"><div class="product-details"><h2>${product.name}</h2><p>${product.desc}</p><button onclick="addProduct('${product.name}', '200ml', ${product.price200})">200ml - ${product.price200}€</button><button onclick="addProduct('${product.name}', '500ml', ${product.price500})">500ml - ${product.price500}€</button></div></div>`;
+            });
+        }
+        
+        generateProductHTML();
+    </script>
+</body>
+</html>
+

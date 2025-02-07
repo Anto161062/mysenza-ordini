@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordina Vigna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 32px;
+            color: #8B0000;
+            margin-bottom: 25px;
+        }
+        .product img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        .product p {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .option {
+            background: #f0e6e6;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .option input {
+            width: 80px;
+            font-size: 50px;
+            text-align: center;
+            margin-left: 15px;
+        }
+        .total {
+            font-size: 50px;
+            font-weight: bold;
+            margin: 25px 0;
+        }
+        .buttons button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 18px 25px;
+            font-size: 44px;
+            cursor: pointer;
+            margin: 12px;
+            width: 95%;
+            border-radius: 8px;
+        }
+        .buttons button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ordina Vigna</h1>
+        <div class="product">
+            <img src="vigna.png" alt="Vigna">
+            <p>🌿 Passione e calore.</p>
+        </div>
+        <div class="option">200ml - 20.00€ <input type="number" min="0" value="0"></div>
+        <div class="option">500ml - 35.00€ <input type="number" min="0" value="0"></div>
+        <div class="total">Totale: 0.00€</div>
+        <div class="buttons">
+            <button onclick="order()">📩 Invia Conferma Ordine</button>
+            <button onclick="goToShop()">🛍️ Fatti un giro in negozio!</button>
+        </div>
+    </div>
+    <script>
+        function order() {
+            let message = "Ciao! Voglio ordinare Vigna.";
+            window.open(`https://wa.me/393717771328?text=${encodeURIComponent(message)}`, "_blank");
+        }
+        function goToShop() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
+

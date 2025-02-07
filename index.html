@@ -47,33 +47,6 @@
             cursor: pointer;
             margin-top: 5px;
         }
-        .total-container {
-            margin-top: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            color: black;
-            max-width: 500px;
-            margin: auto;
-        }
-        .summary-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        .summary-table th, .summary-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        .summary-table th {
-            background-color: #0056b3;
-            color: white;
-        }
-        .blue-check {
-            color: #0056b3;
-        }
         .logo {
             width: 120px;
             margin-bottom: 10px;
@@ -88,17 +61,29 @@
     </div>
     <script>
         const products = [
-            { name: "Vigna Rossa", desc: "Passione e calore.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/vigna_rossa.png" },
-            { name: "Citri Fructus", desc: "Freschezza agrumata.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/citri_fructus.png" },
-            { name: "Eucalipto", desc: "Rigenerazione e purezza.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/eucalipto.png" }
+            { name: "Vigna Rossa", desc: "Passione e calore.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/vigna_rossa.png" },
+            { name: "Citri Fructus", desc: "Freschezza agrumata.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/citri_fructus.png" },
+            { name: "Eucalipto", desc: "Rigenerazione e purezza.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/eucalipto.png" },
+            { name: "Lavanda e Menta", desc: "Serenità e leggerezza.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/lavanda_menta.png" },
+            { name: "Oltremare", desc: "Libertà e freschezza.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/oltremare.png" },
+            { name: "Risveglio", desc: "Vitalità e comfort.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/risveglio.png" },
+            { name: "Sapientia", desc: "Profondità e calma mentale.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/sapientia.png" },
+            { name: "Vaniglia Nera", desc: "Raffinatezza e dolcezza.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/vaniglia_nera.png" },
+            { name: "VaniLime", desc: "Equilibrio e vivacità.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/vanilime.png" },
+            { name: "Incanto", desc: "Fascino e mistero.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/incanto.png" },
+            { name: "Anima", desc: "Introspezione e conforto.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/anima.png" },
+            { name: "03 - Fiori (Bucato)", desc: "Intenso e duraturo.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/fiori.png" },
+            { name: "10 - Brezza (Bucato)", desc: "Energia e freschezza.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/brezza.png" },
+            { name: "20 - Tramonto (Bucato)", desc: "Dolcezza e relax.", img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/tramonto.png" }
         ];
         function generateProductHTML() {
             let container = document.getElementById("products-container");
             products.forEach(product => {
-                container.innerHTML += `<div class="product"><img src="${product.img}" alt="${product.name}"><div class="product-details"><h2>${product.name}</h2><p>${product.desc}</p><button onclick="addProduct('${product.name}', '200ml', ${product.price200})">200ml - ${product.price200}€</button><button onclick="addProduct('${product.name}', '500ml', ${product.price500})">500ml - ${product.price500}€</button></div></div>`;
+                container.innerHTML += `<div class="product"><img src="${product.img}" alt="${product.name}"><div class="product-details"><h2>${product.name}</h2><p>${product.desc}</p></div></div>`;
             });
         }
         generateProductHTML();
     </script>
 </body>
 </html>
+

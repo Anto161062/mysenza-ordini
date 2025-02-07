@@ -3,103 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mysenza Ordini</title>
+    <title>Scegli i Tuoi Profumi</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #007BFF;
+            color: white;
         }
-        h1 {
-            color: #333;
-            font-size: 32px;
+        .container {
+            max-width: 600px;
+            margin: auto;
         }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            justify-items: center;
-        }
-        .product-card {
+        .product {
             background: white;
-            padding: 20px;
+            padding: 10px;
+            margin: 10px auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 300px;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 500px;
         }
-        .product-card img {
-            width: 100%;
-            max-width: 200px;
+        .product img {
+            width: 70px;
+            height: 70px;
             border-radius: 10px;
         }
-        .product-card p {
-            font-size: 32px;
-            margin: 15px 0;
+        .product-details {
+            text-align: left;
+            flex: 1;
+            padding-left: 10px;
         }
-        .product-card .option {
-            font-size: 50px;
-            font-weight: bold;
-            background: rgba(139, 69, 19, 0.1);
-            padding: 10px;
-            border-radius: 10px;
-        }
-        .product-card .option input {
-            width: 80px;
-            font-size: 50px;
-            text-align: center;
-            margin-left: 10px;
-        }
-        .product-card .total {
-            font-size: 50px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-        .product-card button {
-            background-color: #4CAF50;
+        .cta button {
+            background-color: #0056b3;
             color: white;
             border: none;
-            padding: 15px;
-            font-size: 44px;
+            padding: 8px 10px;
+            font-size: 0.9em;
             cursor: pointer;
-            width: 100%;
-            border-radius: 5px;
+            margin-top: 5px;
         }
-        .product-card button:hover {
-            background-color: #45a049;
+        .total-container {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+            max-width: 500px;
+            margin: auto;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .summary-table th {
+            background-color: #0056b3;
+            color: white;
+        }
+        .blue-check {
+            color: #0056b3;
+        }
+        .logo {
+            width: 120px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Mysenza Ordini</h1>
-    <div class="product-grid">
-        <div class="product-card">
-            <img src="vigna_rossa.png" alt="Vigna Rossa">
-            <p>Vigna Rossa</p>
-            <button onclick="window.location.href='vigna.html'">Ordina</button>
-        </div>
-        <div class="product-card">
-            <img src="anima.png" alt="Anima">
-            <p>Anima</p>
-            <button onclick="window.location.href='anima.html'">Ordina</button>
-        </div>
-        <div class="product-card">
-            <img src="citri_fructus.png" alt="Citri Fructus">
-            <p>Citri Fructus</p>
-            <button onclick="window.location.href='citri_fructus.html'">Ordina</button>
-        </div>
-        <div class="product-card">
-            <img src="eucalipto.png" alt="Eucalipto">
-            <p>Eucalipto</p>
-            <button onclick="window.location.href='eucalipto.html'">Ordina</button>
-        </div>
-        <div class="product-card">
-            <img src="vaniglia_nera.png" alt="Vaniglia Nera">
-            <p>Vaniglia Nera</p>
-            <button onclick="window.location.href='vaniglia_nera.html'">Ordina</button>
-        </div>
+    <div class="container">
+        <img src="https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/logo.png" alt="MySenza1 Logo" class="logo">
+        <h1>Scegli i Tuoi Profumi</h1>
+        <div id="products-container"></div>
     </div>
+    <script>
+        const products = [
+            { name: "Vigna Rossa", desc: "Passione e calore.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/vigna_rossa.png" },
+            { name: "Citri Fructus", desc: "Freschezza agrumata.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/citri_fructus.png" },
+            { name: "Eucalipto", desc: "Rigenerazione e purezza.", price200: 20, price500: 35, img: "https://raw.githubusercontent.com/Anto161062/mysenza-ordini/main/eucalipto.png" }
+        ];
+        function generateProductHTML() {
+            let container = document.getElementById("products-container");
+            products.forEach(product => {
+                container.innerHTML += `<div class="product"><img src="${product.img}" alt="${product.name}"><div class="product-details"><h2>${product.name}</h2><p>${product.desc}</p><button onclick="addProduct('${product.name}', '200ml', ${product.price200})">200ml - ${product.price200}€</button><button onclick="addProduct('${product.name}', '500ml', ${product.price500})">500ml - ${product.price500}€</button></div></div>`;
+            });
+        }
+        generateProductHTML();
+    </script>
 </body>
 </html>

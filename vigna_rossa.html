@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordine Vigna Rossa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: black;
+        }
+        .product {
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+        }
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            color: black;
+        }
+        h2 {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: black;
+        }
+        .order-box {
+            background: #f0e6e6;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        .order-box label {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: black;
+        }
+        .order-box input {
+            width: 80px;
+            height: 50px;
+            font-size: 1.5em;
+            text-align: center;
+            border: 2px solid black;
+            border-radius: 5px;
+        }
+        .total {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 15px 0;
+            color: black;
+        }
+        .cta button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1.3em;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .cta button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vigna Rossa</h1>
+    <h2>🌿 Passione e calore.</h2>
+    <div class="order-box">
+        <label for="quantity200">200ml - 20.00€</label>
+        <input type="number" id="quantity200" value="0" min="0" onchange="updateTotal()">
+    </div>
+    <div class="order-box">
+        <label for="quantity500">500ml - 35.00€</label>
+        <input type="number" id="quantity500" value="0" min="0" onchange="updateTotal()">
+    </div>
+    <p class="total" id="total">Totale: 0.00€</p>
+    <div class="cta">
+        <button onclick="sendOrder()">📩 Invia Conferma Ordine</button>
+        <button onclick="window.location.href='index.html'">🛍️ Fatti un giro in negozio!</button>
+    </div>
+    <script>
+        function updateTotal() {
+            const quantity200 = document.getElementById("quantity200").value;
+            const quantity500 = document.getElementById("quantity500").value;
+            const total = (quantity200 * 20 + quantity500 * 35).toFixed(2);
+            document.getElementById("total").textContent = `Totale: ${total}€`;
+        }
+        function sendOrder() {
+            const quantity200 = document.getElementById("quantity200").value;
+            const quantity500 = document.getElementById("quantity500").value;
+            const total = (quantity200 * 20 + quantity500 * 35).toFixed(2);
+            
+            let message = "Ciao! Confermo ordine per Vigna Rossa:\n";
+            if (quantity200 > 0) message += `- ${quantity200} x 200ml (20€)\n`;
+            if (quantity500 > 0) message += `- ${quantity500} x 500ml (35€)\n`;
+            message += `Totale: ${total}€`;
+            
+            const whatsappURL = `https://wa.me/393717771328?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, "_blank");
+        }
+    </script>
+</body>
+</html>
+
+

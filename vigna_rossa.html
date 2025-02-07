@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigna Rossa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .product-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: center;
+        }
+        img {
+            width: 150px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .order-box {
+            background: rgba(139, 69, 19, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .cta button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .cta button:hover {
+            background-color: #45a049;
+        }
+        .cart-container {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: black;
+            max-width: 500px;
+            margin: auto;
+        }
+        .cart-items {
+            list-style: none;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vigna Rossa</h1>
+    <div class="product-container">
+        <img src="vigna_rossa.png" alt="Vigna Rossa">
+        <p>🌿 Passione e calore.</p>
+        <div class="order-box">
+            <p>200ml - 20.00€</p>
+            <input type="number" id="quantity200" value="0" min="0" onchange="updateCart('Vigna Rossa', 200, 20)">
+        </div>
+        <div class="order-box">
+            <p>500ml - 35.00€</p>
+            <input type="number" id="quantity500" value="0" min="0" onchange="updateCart('Vigna Rossa', 500, 35)">
+        </div>
+        <div class="cta">
+            <button onclick="checkout()">📩 Invia Ordine</button>
+        </div>
+    </div>
+    <div class="cart-container">
+        <h2>Carrello</h2>
+        <ul id="cart-items"></ul>
+    </div>
+    <script>
+        function updateCart(product, size, price) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart = cart.filter(item => item.product !== product || item.size !== size);
+            let quantity = document.getElementById(`quantity${size}`).value;
+            if (quantity > 0) {
+                cart.push({ product, size, quantity, price });
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            displayCart();
+        }
+        
+        function displayCart() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartList = document.getElementById("cart-items");
+            cartList.innerHTML = "";
+            cart.forEach(item => {
+                cartList.innerHTML += `<li>${item.quantity} x ${item.product} ${item.size}ml - ${item.price}€</li>`;
+            });
+        }
+        
+        function checkout() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart.length === 0) {
+                alert("Il carrello è vuoto!");
+                return;
+            }
+            let message = `Ciao! Ecco il mio ordine:\n` + cart.map(item => `- ${item.quantity} x ${item.product} ${item.size}ml - ${item.price}€`).join("\n");
+            window.open(`https://wa.me/393717771328?text=${encodeURIComponent(message)}`, "_blank");
+        }
+        
+        displayCart();
+    </script>
+</body>
+</html>
+
